@@ -1,0 +1,22 @@
+{
+  "name": "fullcalendar-demo",
+  "version": "1.0.0",
+  "description": "`$ npm install fullcalendar`",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JacobHsu/fullcalendar-demo.git"
+  },
+  "author": "Jacob Hsu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JacobHsu/fullcalendar-demo/issues"
+  },
+  "homepage": "https://github.com/JacobHsu/fullcalendar-demo#readme",
+  "dependencies": {
+    "fullcalendar": "^3.9.0"
+  }
+}
