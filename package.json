@@ -17,6 +17,9 @@
   },
   "homepage": "https://github.com/JacobHsu/fullcalendar-demo#readme",
   "dependencies": {
-    "fullcalendar": "^3.9.0"
-  }
+    "fullcalendar": "^3.9.0",
+    "gulp": "^3.9.1",
+    "gulp-webserver": "^0.9.1"
+  },
+  "devDependencies": {}
 }
