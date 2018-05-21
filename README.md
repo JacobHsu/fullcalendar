@@ -11,3 +11,5 @@ FullCalendar相依於jQuery與Moment.js，記得要先載入
 `$ npm install fullcalendar`  
 
 `npm install gulp gulp-webserver -save-dev` 
+
+`$git subtree push --prefix dist origin gh-pages`  
