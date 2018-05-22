@@ -1,0 +1,17 @@
+{
+  "name": "fullcalendar-demo",
+  "description": "`$ npm install fullcalendar`",
+  "main": "index.js",
+  "authors": [
+    "Jacob Hsu"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/JacobHsu/fullcalendar-demo",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

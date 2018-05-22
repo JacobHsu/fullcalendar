@@ -21,5 +21,7 @@
     "gulp": "^3.9.1",
     "gulp-webserver": "^0.9.1"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "main-bower-files": "^2.13.1"
+  }
 }
