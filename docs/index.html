@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Taiwan News Calendar</title>
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.css' />
+    <style>
+        body {
+            margin: 40px 10px;
+            padding: 0;
+            font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+            font-size: 14px;
+        }
+        
+        #calendar {
+            max-width: 900px;
+            margin: 0 auto;
+        }   
+    </style>
+</head>
+<body>
+    <div id='calendar'></div>
+
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.23.0/moment.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.js'></script>
+    <script src="js/jquery.ajax-cross-origin.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            var d = new Date();
+            var year = d.getUTCFullYear();
+            var month = d.getUTCMonth()+1;
+            var day = d.getUTCDate();
+
+
+            $.ajax({
+                crossOrigin: true,
+                url: 'https://oldpaper.g0v.ronny.tw/index/json',
+                success: function(response) {
+
+                    var obj = jQuery.parseJSON( response );
+                    console.log('ajax',obj.data[0]);
+
+                    var title = obj.data[0].headlines;
+                    var url = obj.data[0].link;
+                    var subject = obj.data[0].title;
+                    var dataByYear = subject.split("年");
+                    var year = parseInt(dataByYear[0])+1911;
+                    var dataByMonth = dataByYear[1].split("月");
+                    var month = parseInt(dataByMonth[0]) > 10 ? dataByMonth[0] : `0${dataByMonth[0]}`;
+                    var date = dataByMonth[1].split("日")[0].replace(/[^0-9]/g,'-');
+
+                    var start = `${year}-${month}-${date}`;
+
+                    var events = [];
+                    var headlines = obj.data[0].headlines;
+                    for(var i in headlines) {
+                        events.push({'title':headlines[i][1],'url':url,'start':start});
+                    }
+
+                    $('#calendar').fullCalendar({
+                        header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek'
+                        },
+                        defaultDate: `${year}-${month}-${day}`,
+                        navLinks: true, // can click day/week names to navigate views
+                        editable: true,
+                        eventLimit: true, // allow "more" link when too many events
+                        displayEventTime: false,
+                        events: events,
+                        eventOrder: "-id",
+                    });
+                }
+            })  
+            .fail(function(response) {
+                console.log( "error",response);
+            });
+
+
+        
+        });        
+        </script>  
+</body>
+</html>
