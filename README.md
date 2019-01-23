@@ -32,3 +32,4 @@ gulp 用來管理、合併、minify、uglify 文件
 [四大報頭條](http://oldpaper.g0v.ronny.tw/) [JSON API](http://oldpaper.g0v.ronny.tw/index/json)  
 [fullcalendar - cdnjs.com](https://cdnjs.com/libraries/fullcalendar)  
 [Ajax Cross Origin](http://www.ajax-cross-origin.com/) - jQuery plugin  
+[icons8](https://icons8.com/icons/set/news)  
