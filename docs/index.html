@@ -35,30 +35,32 @@
             var month = d.getUTCMonth()+1;
             var day = d.getUTCDate();
 
+            function timeParser(subject) {
+                var dataByYear = subject.split("年");
+                var year = parseInt(dataByYear[0])+1911;
+                var dataByMonth = dataByYear[1].split("月");
+                var month = parseInt(dataByMonth[0]) >9 ? dataByMonth[0] : `0${dataByMonth[0]}`;
+                var date = dataByMonth[1].split("日")[0].replace(/[^0-9]/g,'-');
+                    date =  parseInt(date) >9 ? date : `0${date}`;
+                return `${year}-${month}-${date}`;
+            }
 
             $.ajax({
                 crossOrigin: true,
                 url: 'https://oldpaper.g0v.ronny.tw/index/json',
                 success: function(response) {
 
-                    var obj = jQuery.parseJSON( response );
-                    console.log('ajax',obj.data[0]);
-
-                    var title = obj.data[0].headlines;
-                    var url = obj.data[0].link;
-                    var subject = obj.data[0].title;
-                    var dataByYear = subject.split("年");
-                    var year = parseInt(dataByYear[0])+1911;
-                    var dataByMonth = dataByYear[1].split("月");
-                    var month = parseInt(dataByMonth[0]) > 10 ? dataByMonth[0] : `0${dataByMonth[0]}`;
-                    var date = dataByMonth[1].split("日")[0].replace(/[^0-9]/g,'-');
-
-                    var start = `${year}-${month}-${date}`;
-
                     var events = [];
-                    var headlines = obj.data[0].headlines;
-                    for(var i in headlines) {
-                        events.push({'title':headlines[i][1],'url':url,'start':start});
+                    var obj = jQuery.parseJSON( response );
+                    for(var id in obj.data) {
+                        var item = obj.data[id];
+                        var url = item.link;    
+                        var start = timeParser(item.title);
+                        //console.warn(id, start, item);
+                        var headlines = item.headlines;
+                        for(var i in item.headlines) {
+                            events.push({'title':headlines[i][1],'url':url,'start':start});
+                        }
                     }
 
                     $('#calendar').fullCalendar({
@@ -75,10 +77,10 @@
                         events: events,
                         eventOrder: "-id",
                     });
+                },
+                error : function(response) {
+                    console.log( "error:",response);
                 }
-            })  
-            .fail(function(response) {
-                console.log( "error",response);
             });
 
 
